@@ -2,7 +2,7 @@ import javax.swing.*;
 
 /**
  * Main class with main method invoked on app start.
- * @version 1.0.1
+ * @version 1.0.0
  * @author Dr. Jody Paul
  */
 public class Main {
