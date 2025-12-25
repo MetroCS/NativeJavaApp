@@ -5,7 +5,7 @@ This project uses Apache Ant and JDK 25 to compile, bundle, and package a Java a
 
 ## Common Requirements (All Systems)
 Before running the build, ensure the following are installed and configured:
-- JDK 21 or 25: Must be installed. Although jpackage was introduced in JDK 14, JDK 21+ is recommended for modern macOS/Linux support.
+- JDK 21 or 25: Must be installed. Although jpackage was introduced in JDK 14, JDK 21+ is recommended for modern macOS/Linux/Windows support.
 - Apache Ant: Installed and available in your PATH.
 - `JAVA_HOME`: This environment variable must point to your JDK installation directory.
   - Check via: `ant -version` and `java -version`
