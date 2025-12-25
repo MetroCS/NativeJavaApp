@@ -50,7 +50,7 @@ MyAppName/
 └── build.xml           # The Ant build script
 ```
 ## Usage Commands
-Open your terminal in the project root and use the following targets:
+Open a terminal in the project root and use the following targets:
 
 | Command |	Description |
 |-----|-----|
@@ -89,10 +89,10 @@ Every time you push code to the main branch or open a Pull Request:
 - The installers are saved as Artifacts in the GitHub Actions run summary for 90 days.
 ### The Release Phase (Continuous Deployment)
 A formal GitHub Release is only triggered when you push a version tag.
-This creates a permanent download page for your users.
+This creates a permanent download page for users.
 
 #### How to trigger a new release:
-To release a new version (e.g., version 1.0.1), run the following commands in your terminal:
+To release a new version (e.g., version 1.0.1), run the following commands in a terminal:
 
 ```Bash
 # 1. Tag the current commit

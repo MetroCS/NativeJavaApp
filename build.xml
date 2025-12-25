@@ -21,6 +21,31 @@
     </not>
   </condition>
 
+  <macrodef name="generate-javadoc">
+    <attribute name="access-level" default="protected"/>
+    <attribute name="output-subdir"/>
+    <sequential>
+      <mkdir dir="${docs.dir}/@{output-subdir}"/>
+      <javadoc destdir="${docs.dir}/@{output-subdir}"
+               source="1.8"
+               encoding="UTF-8"
+               use="true"
+               author="true"
+               version="true"
+               failonerror="true"
+               access="@{access-level}">
+        <fileset dir="${src.dir}" includes="**/*.java"/>
+        <link href="${javadoc.api.url}"/>
+        <!-- Uncomment to resolve references in Javadoc comments to lib/ jars. -->
+        <!--
+            <classpath>
+            <pathelement path="${build.dir}"/>
+            <fileset dir="lib" includes="**/*.jar" erroronmissingdir="false"/>
+            </classpath>
+        -->
+        </javadoc>
+    </sequential>
+  </macrodef>
 
   <condition property="isMac">
     <os family="mac"/>
@@ -85,27 +110,15 @@
     <java jar="${jar.dir}/${app.name}.jar" fork="true"/>
   </target>
 
-  <target name="javadoc" depends="preflight" description="Generate Javadoc (works for unnamed or named packages)">
-    <mkdir dir="${docs.dir}"/>
-    <javadoc destdir="${docs.dir}"
-             source="1.8"
-             encoding="UTF-8"
-             use="true"
-             author="true"
-             version="true"
-             failonerror="true">
-      <fileset dir="${src.dir}" includes="**/*.java"/>
-
-      <link href="${javadoc.api.url}"/>
-      <!-- Uncomment to resolve references in Javadoc comments. -->
-      <!--
-          <classpath>
-          <pathelement path="${build.dir}"/>
-          <fileset dir="lib" includes="**/*.jar"/>
-          </classpath>
-      -->
-    </javadoc>
+  <target name="javadoc" depends="preflight" description="Generate standard API documentation">
+    <generate-javadoc access-level="protected" output-subdir="api"/>
   </target>
+
+  <target name="javadoc-internal" depends="preflight" description="Generate internal documentation (includes private members)">
+    <generate-javadoc access-level="private" output-subdir="internal"/>
+  </target>
+
+  <target name="javadoc-all" depends="javadoc, javadoc-internal" description="Generate both standard and internal documentation sets"/>
 
   <target name="package" description="Build the native installer for the current OS (DMG, DEB, or MSI)">
     <antcall target="dmg"/>
