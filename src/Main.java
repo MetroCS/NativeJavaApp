@@ -6,7 +6,7 @@ import javax.swing.*;
  * @author Dr. Jody Paul
  */
 public class Main {
-    /** Hidden constructor for utility class. */
+    /** Private constructor to prevent instantiation of entry point class. */
     private Main() { }
 
     /**
