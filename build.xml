@@ -33,8 +33,21 @@
     </and>
   </condition>
 
-  <condition property="icon.file" value="icon.icns" else="icon.png">
+  <condition property="isWindows">
+    <os family="windows"/>
+  </condition>
+
+  <condition property="icon.file" value="icon.icns">
     <isset property="isMac"/>
+  </condition>
+  <condition property="icon.file" value="icon.ico">
+    <and>
+      <isset property="isWindows"/>
+      <not><isset property="icon.file"/></not>
+    </and>
+  </condition>
+  <condition property="icon.file" value="icon.png">
+    <not><isset property="icon.file"/></not>
   </condition>
 
   <target name="preflight" description="Print toolchain/OS info">
@@ -94,9 +107,10 @@
     </javadoc>
   </target>
 
-  <target name="package" description="Build the native installer for the current OS (DMG or DEB)">
+  <target name="package" description="Build the native installer for the current OS (DMG, DEB, or MSI)">
     <antcall target="dmg"/>
     <antcall target="debian"/>
+    <antcall target="windows"/>
   </target>
 
   <target name="dmg" depends="jar" if="isMac" description="[Mac Only] Builds the .dmg installer">
@@ -146,6 +160,31 @@
       <mapper type="merge" to="${app.name}-Linux.deb"/>
     </move>
     <echo message="Success! Debian Package: ${dist.dir}/${app.name}-Linux.deb"/>
+  </target>
+
+  <target name="windows" depends="jar" if="isWindows" description="[Windows Only] Builds the .msi installer">
+    <mkdir dir="${dist.dir}"/>
+    <exec executable="jpackage" failonerror="true">
+      <arg value="--input"/><arg value="${jar.dir}"/>
+      <arg value="--dest"/><arg value="${dist.dir}"/>
+      <arg value="--name"/><arg value="${app.name}"/>
+      <arg value="--main-jar"/><arg value="${app.name}.jar"/>
+      <arg value="--main-class"/><arg value="${main.class}"/>
+      <arg value="--type"/><arg value="msi"/>
+      <arg value="--icon"/><arg value="${icon.file}"/>
+      <arg value="--app-version"/><arg value="${app.version}"/>
+      <arg value="--win-dir-chooser"/>
+      <arg value="--win-shortcut"/>
+      <arg value="--win-menu"/>
+    </exec>
+    <move todir="${dist.dir}">
+      <fileset dir="${dist.dir}">
+        <include name="${app.name}*.msi"/>
+        <exclude name="${app.name}-Windows.msi"/>
+      </fileset>
+      <mapper type="merge" to="${app.name}-Windows.msi"/>
+    </move>
+    <echo message="Success! Windows Installer: ${dist.dir}/${app.name}-Windows.msi"/>
   </target>
 
 </project>

@@ -1,7 +1,7 @@
 # NativeJavaApp
 Scaffold for creating double-clickable apps using Java
 
-This project uses Apache Ant and JDK 25 to compile, bundle, and package a Java application into native installers (.dmg for macOS and .deb for Ubuntu).
+This project uses Apache Ant and JDK 25 to compile, bundle, and package a Java application into native installers (.dmg for macOS, .deb for Ubuntu, and .msi for Windows).
 
 ## Common Requirements (All Systems)
 Before running the build, ensure the following are installed and configured:
@@ -27,6 +27,16 @@ sudo apt install ant fakeroot dpkg-dev
 - fakeroot: Allows the package to be built with correct file permissions without requiring root access.
 - dpkg-dev: Provides the core utilities to create Debian packages.
 - Icon Asset: A file named icon.png (512x512 recommended) must be in the project root.
+## Windows Setup
+To build the .msi installer on Windows, ensure the following:
+- JDK 21 or 25: Must be installed with JAVA_HOME configured.
+- Apache Ant: Installed and available in your PATH.
+- WiX Toolset: Required by jpackage to create MSI installers.
+  - Download and install from: https://wixtoolset.org/releases/
+  - Version 3.11 or higher is recommended.
+  - After installation, verify WiX is in your PATH by running: `candle -?`
+- Icon Asset: A file named icon.ico must be in the project root.
+- Note on Security: Windows may show a SmartScreen warning for unsigned installers. Users will need to click "More info" > "Run anyway" to install the app.
 ## Project Directory Structure
 Ensure your project looks like this for the build.xml to find all resources:
 
@@ -36,6 +46,7 @@ MyAppName/
 │   └── Main.java       # Your source code
 ├── icon.icns           # Required for macOS DMG
 ├── icon.png            # Required for Ubuntu DEB
+├── icon.ico            # Required for Windows MSI
 └── build.xml           # The Ant build script
 ```
 ## Usage Commands
@@ -44,7 +55,7 @@ Open your terminal in the project root and use the following targets:
 | Command |	Description |
 |-----|-----|
 | ant |	The default; runs the package target. |
-| ant package |	Automatically detects OS and builds .dmg (Mac) or .deb (Linux). |
+| ant package |	Automatically detects OS and builds .dmg (Mac), .deb (Linux), or .msi (Windows). |
 | ant run	| Compiles and launches the app immediately for testing. |
 | ant clean	| Deletes the build/ and dist/ folders to start fresh. |
 | ant -p	| Displays a help menu of all available targets. |
@@ -59,6 +70,10 @@ Open your terminal in the project root and use the following targets:
     <td>If the Linux build fails, ensure icon.png is not just a renamed .icns or .jpg. It must be a valid PNG file.</td>
   </tr>
   <tr>
+    <td>Windows "candle.exe not found": </td>
+    <td>Install WiX Toolset 3.11+ and ensure it's in your PATH. jpackage uses WiX to create MSI installers on Windows.</td>
+  </tr>
+  <tr>
     <td>Permissions: </td>
     <td>If the generated .app or .deb won't execute, ensure you have the necessary write permissions in the dist/ directory.</td>
   </tr>
@@ -69,8 +84,8 @@ This project uses GitHub Actions to automatically build and distribute native in
 
 ### The Build Phase (Continuous Integration)
 Every time you push code to the main branch or open a Pull Request:
-- GitHub starts a macOS runner and an Ubuntu runner.
-- Both systems compile the code and create their respective installers (.dmg and .deb).
+- GitHub starts a macOS runner, an Ubuntu runner, and a Windows runner.
+- All systems compile the code and create their respective installers (.dmg, .deb, and .msi).
 - The installers are saved as Artifacts in the GitHub Actions run summary for 90 days.
 ### The Release Phase (Continuous Deployment)
 A formal GitHub Release is only triggered when you push a version tag.
@@ -92,6 +107,7 @@ git push origin v1.0.1
 - Under Assets, you will find:
   - MyAntApp-Installer.dmg (for macOS)
   - MyAntApp-Linux.deb (for Ubuntu/Debian)
+  - MyAntApp-Windows.msi (for Windows)
 
 ### Changing the Version Number
 When ready to bump the version, remember to update the version number in **two** places to keep everything in sync:
