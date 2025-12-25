@@ -5,14 +5,14 @@ This project uses Apache Ant and JDK 25 to compile, bundle, and package a Java a
 
 ## Common Requirements (All Systems)
 Before running the build, ensure the following are installed and configured:
-- JDK 21 or 25: Must be installed. jpackage was introduced in JDK 14, but JDK 21+ is recommended for modern macOS/Linux support.
+- JDK 21 or 25: Must be installed. Although jpackage was introduced in JDK 14, JDK 21+ is recommended for modern macOS/Linux support.
 - Apache Ant: Installed and available in your PATH.
-- JAVA_HOME: This environment variable must point to your JDK installation directory.
-  - Check via: ant -version and java -version
+- `JAVA_HOME`: This environment variable must point to your JDK installation directory.
+  - Check via: `ant -version` and `java -version`
 ## macOS Setup
 To build the .dmg installer, your Mac needs the following:
 - Xcode Command Line Tools: Required for various build utilities.
-  - Install via: xcode-select --install
+  - Install via: `xcode-select --install`
 - Icon Asset: A file named icon.icns must be in the project root.
 - Note on Security: Since the app is not "Signed" with an Apple Developer Certificate, users may need to Right-Click > Open the app the first time to bypass the "Unidentified Developer" warning.
 ## Ubuntu / Debian Setup
@@ -31,7 +31,7 @@ sudo apt install ant fakeroot dpkg-dev
 Ensure your project looks like this for the build.xml to find all resources:
 
 ```Plaintext
-MyAntApp/
+MyAppName/
 ├── src/
 │   └── Main.java       # Your source code
 ├── icon.icns           # Required for macOS DMG
@@ -93,7 +93,7 @@ git push origin v1.0.1
   - MyAntApp-Installer.dmg (for macOS)
   - MyAntApp-Linux.deb (for Ubuntu/Debian)
 
-### Pro-Tip: Changing the Version Number
-When you're ready to bump the version, remember to update the version number in two places to keep everything in sync:
+### Changing the Version Number
+When ready to bump the version, remember to update the version number in **two** places to keep everything in sync:
 - The Git Tag (the v1.0.1 above).
-- The app.version property at the top of your build.xml. This ensures that when the user installs the app, the OS sees the correct version number in the "About" or "Get Info" screens.
+- The **app.version** property at the top of `build.xml`. This ensures that when the user installs the app, the OS sees the correct version number in the "About" or "Get Info" screens.
