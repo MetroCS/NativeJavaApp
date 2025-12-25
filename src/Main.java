@@ -2,8 +2,13 @@ import javax.swing.*;
 
 /**
  * Main class with main method invoked on app start.
+ * @version 1.0.1
+ * @author Dr. Jody Paul
  */
 public class Main {
+    /** Hidden constructor for utility class. */
+    private Main() { }
+
     /**
      * Invoked on start.
      * @param args ignored
