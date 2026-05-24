@@ -1,5 +1,5 @@
 # NativeJavaApp
-Scaffold for creating double-clickable apps using Java
+Native Java App provides a scaffolded framework for creating and packaging double-clickable Java applications for macOS, Windows, and Linux.
 
 This project uses Apache Ant and JDK 25 to compile, bundle, and package a Java application into native installers (.dmg for macOS, .deb for Ubuntu, and .msi for Windows).
 
@@ -129,11 +129,6 @@ When ready to bump the version, remember to update the version number in **two**
 - The **app.version** property at the top of `build.xml`. This ensures that when the user installs the app, the OS sees the correct version number in the "About" or "Get Info" screens.
 
 ---
-## Native Java App Website
-
-https://metrocs.github.io/NativeJavaApp/
-
----
 ## References
 
 ### jpackage
@@ -142,3 +137,14 @@ https://metrocs.github.io/NativeJavaApp/
 
 ### Alternatives
 - **jDeploy:** https://www.jdeploy.com
+
+---
+Native Java App provides learners with a scaffolded framework for creating and packaging double-clickable native Java applications for macOS, Windows, and Linux.
+
+Copyright (c) 2026 Dr. Jody Paul
+
+This program is free software: you can redistribute it and/or modify it under the terms of the [GNU General Public License](LICENSE) as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).
