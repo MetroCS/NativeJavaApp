@@ -39,7 +39,7 @@ To build the .msi installer on Windows, ensure the following:
 - JDK 21 or 25: Must be installed with JAVA_HOME configured.
 - Apache Ant: Installed and available in your PATH.
 - WiX Toolset: Required by jpackage to create MSI installers.
-  - Download and install from: https://wixtoolset.org/releases/
+  - Download and install from: [https://wixtoolset.org/releases/](https://wixtoolset.org/releases/)
   - Version 3.11 or higher is recommended.
   - After installation, verify WiX is in your PATH by running: `candle -?`
 - Icon Asset: A file named icon.ico must be in the project root.
@@ -133,10 +133,10 @@ When ready to bump the version, remember to update the version number in **two**
 
 ### jpackage
 
-- https://docs.oracle.com/en/java/javase/25/docs/specs/man/jpackage.html
+- [https://docs.oracle.com/en/java/javase/25/docs/specs/man/jpackage.html](https://docs.oracle.com/en/java/javase/25/docs/specs/man/jpackage.html)
 
 ### Alternatives
-- **jDeploy:** https://www.jdeploy.com
+- **jDeploy:** [https://www.jdeploy.com](https://www.jdeploy.com)
 
 ---
 Native Java App provides learners with a scaffolded framework for creating and packaging double-clickable native Java applications for macOS, Windows, and Linux.
